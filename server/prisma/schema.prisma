@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  password  String
+  contacts  Contact[]
+  audiences Audience[]
+  campaigns Campaign[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Contact {
+  id String @id @default(cuid())
+
+  name String
+
+  email String
+
+  phone String?
+
+  customFields Json?
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, email])
+  @@unique([userId, phone])
+}
+
+model Audience {
+  id String @id @default(cuid())
+
+  name String
+
+  filterField String
+
+  filterValue String
+
+  userId String
+
+  campaigns Campaign[]
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Campaign {
+  id String @id @default(cuid())
+
+  name String
+
+  subject String
+
+  body String
+
+  status String @default("DRAFT")
+
+  scheduledAt DateTime?
+
+  manualRecipients Json?
+
+  sentCount Int @default(0)
+
+  deliveredCount Int @default(0)
+
+  openedCount Int @default(0)
+  
+  brevoMessageId String?
+
+  userId String
+
+  audienceId String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  audience Audience? @relation(fields: [audienceId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}

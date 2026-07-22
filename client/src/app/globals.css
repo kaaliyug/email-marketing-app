@@ -1,0 +1,306 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: black;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  ul,
+  ol {
+    list-style: none;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  main {
+    min-height: 100vh;
+  }
+
+/* here starts CSS styling */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 40px;
+    background:#111827;
+    color:white;
+}
+
+.header-left h2{
+    margin:0;
+}
+
+.header-nav{
+    display:flex;
+    gap:20px;
+}
+nav {
+  display: flex;
+  gap:200px;
+}
+.header-nav a{
+    color:white;
+    text-decoration:none;
+}
+
+.header-nav a.active{
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.header-right button{
+    padding:8px 16px;
+    cursor:pointer;
+}
+
+ 
+  /* contacts styling */
+  .wrapper-contacts {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    gap:20px; 
+  }
+  .wrapper-contacts .import {
+    grid-column: 2/-1;
+    justify-self: flex-end;
+    margin-right:30px;
+  }
+  .wrapper-contacts >*:nth-child(1 of input) {
+    border:4px solid greenyellow;
+    background-color:#DCDCDC;
+    font-size: 13px;
+    font-weight: 600;
+    padding-block:12px ;
+    padding-inline: 16px;
+    margin-left:30px;
+    outline:none;
+    border:none;
+    color:#191970;
+    border-radius: 6px;
+    grid-column: 1/2;
+    justify-self: flex-start;
+  }
+  .wrapper-contacts >*:nth-child(2 of input) {    
+    margin-top:20px;
+    grid-column: 2/4;
+    outline:none;
+    border:none;
+    background-color:#DCDCDC;
+    font-size: 15px;
+    padding-block:15px ;
+    padding-inline: 20px;    
+  }
+  .wrapper-contacts .pagination{
+    margin-top:20px;
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  /* Audiences styling */
+  .wrapper-audiences,
+  .wrapper-campaign {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:20px;
+  }
+
+  /* campaign styling */
+  .campaign-analytics {
+    padding:30px;
+  }
+  
+  
+  /* common styling */
+  .wrapper-form {
+    background-color: #F8F8FF;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .wrapper-form> * {
+    flex:1 1 100%;
+  }
+   .wrapper-form form {
+    background-color: #F8F8FF;
+    margin-inline: auto;
+    max-width:600px;
+  }
+  .wrapper-form form div {
+    display: grid;
+    gap:1px;
+    padding-top:20px;
+  }
+  .wrapper-form form div label {
+    font-size: 13.5px;
+    padding-block:4px ;
+    font-weight: bold;
+    user-select: none;
+  }
+  .wrapper-form form div input,
+  .wrapper-form form div textarea,
+  .wrapper-form form div select {
+    font-size: 15px;
+    padding-block:12px ;
+    padding-inline: 16px;
+    outline:none;
+    border:none;
+    background-color:#DCDCDC;
+    color:#191970;
+    border-radius: 6px;
+  }  
+  .wrapper-form form button {
+    display: flex;
+    padding-inline:25px;
+    padding-block: 10px;
+    font-size: 15px;
+    align-items:center;
+    margin-inline:auto;
+    margin-block:50px 10px;
+    background-color: #00BFFF;
+    border-radius: 4px;
+    color:#FAEBD7;
+    text-transform: uppercase;
+  }
+  .wrapper-form form button:hover {
+    opacity:1;
+    background-color:#4169E1 ;
+  }
+   
+  .head {
+   display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1/-1; 
+    padding-inline: 30px;
+  }
+  .head h2, h2 {
+    margin-block:50px 40px;
+    text-align: center;
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: 600;
+    user-select: none;
+  }
+  .head >*:not(h2) {
+    display: flex;
+    padding-inline:28px;
+    padding-block: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    align-items:center;
+    background-color: #A9A9A9;
+    border-radius: 4px;
+    color:#FFEFD5;
+    min-width:fit-content;
+  }
+  .head >*:not(h2):hover {
+    opacity:1;
+    background-color:#FF7F50;
+    color:#8FBC8F;
+  }  
+  h3 {
+    margin-block:50px 40px;
+    text-align: center;
+    font-size: 26px;
+    text-transform: uppercase;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  
+  table {
+    grid-column: 1/-1;
+    border-collapse: separate; 
+    border-spacing: 13px;      
+
+    width: 100%;
+    table-layout: fixed;
+  }
+  table thead th{
+    margin:20px;
+    padding:20px;
+    font-size: 16px;
+  }
+  table tbody td {
+    background-color: #FFF5EE;
+    padding-inline:2px;
+    padding-block:14px;
+    text-align: center;     
+    font-size: 13.9px; 
+    border-radius: 4px;
+  }
+  table tbody td:last-child {
+    padding-inline:30px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}   
+table tbody td:last-child >* {
+    color:#A9A9A9;
+ }
+ 
+  .col-small {
+    width:13%;
+  }
+  .col-xsmall {
+    width: 10%;
+  }
+  .col-md {
+    width:11%;
+  }
+  table tbody td .edit:hover {
+    color:#00BFFF;
+  }
+  table tbody td .delete:hover {
+    color:#FF0000;
+  }
+  table tbody td .send:hover {
+    color:#00FF7F;
+  }
+  table tbody td .analytics:hover {
+    color:#4B0082;
+  }
+  /* --------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+}

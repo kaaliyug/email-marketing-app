@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Campaign" ADD COLUMN     "deliveredCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "openedCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "sentCount" INTEGER NOT NULL DEFAULT 0;
