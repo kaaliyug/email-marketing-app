@@ -107,7 +107,13 @@ Unique opened
 Clicked
 Bounced
 
-6. Description:
+6.  ## Design Decisions
+
+- Prisma ORM was used for database access to provide type-safe queries.
+- BullMQ with Redis was chosen to ensure scheduled campaigns survive server restarts.
+- Brevo Transactional Email API was used for email delivery and webhook-based analytics.
+- CSV imports skip duplicate contacts and return a summary of imported and skipped records.
+
 Since we're using memory storage, the uploaded CSV is already available as a Buffer.
 The time zone is in UTC time zone
 `Audience works:`
@@ -148,14 +154,51 @@ During testing, Gmail temporarily rate-limited emails sent from Brevo's shared s
 
 Because deliveredCount depends on receiving a `delivered` webhook event from Brevo, it remains 0 until Brevo confirms successful delivery.
 
+Supported webhook events:
 Example webhook events handled:
 - delivered → increments deliveredCount
 - opened / unique_opened → increments openedCount
-
-The email client blocked the tracking pixel (common for some email clients).
+- unique_opened → increments openedCount
 
 
 7. Known Limitation
 Delivery analytics depend on Brevo webhook events.
 During testing, Gmail temporarily rate-limited emails sent through Brevo shared sending domains. This resulted in deferred events instead of delivered events.
 Opened analytics were verified successfully using Brevo unique_opened/opened webhook events.
+
+
+
+## Running Locally
+
+### Clone the repository
+git clone <repository-url>
+### Install dependencies
+Frontend:
+cd client
+npm install
+
+Backend
+cd server
+npm install
+
+### Environment Variables
+
+Backend (.env)
+
+DATABASE_URL=
+REDIS_URL=
+JWT_SECRET=
+BREVO_API_KEY=
+SENDER_EMAIL=
+SENDER_NAME=
+
+Frontend (.env.local)
+NEXT_PUBLIC_API_URL=
+
+### Start the application
+
+Backend
+npm run dev
+
+Frontend
+npm run dev
