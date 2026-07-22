@@ -207,8 +207,17 @@ NEXT_PUBLIC_API_URL=
 
 # Start the application
 
+Generate Prisma Client
+npx prisma generate
+
+Run database migrations
+npx prisma migrate dev
+
+For Prisma: `npx prisma studio` in the server folder to access the database.
+
 Backend
 npm run dev
 
 Frontend
 npm run dev
+
