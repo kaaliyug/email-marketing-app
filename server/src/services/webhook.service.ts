@@ -65,6 +65,9 @@ export const handleBrevoWebhook = async (
   case "opened":
     case "unique_opened":
 
+       console.log("Updating openedCount for campaign", campaign.id);
+
+
     await prisma.campaign.update({
         where: {
             id: campaign.id,
