@@ -5,47 +5,30 @@ type BrevoWebhookPayload = {
     "message-id": string;
 };
 
-export const handleBrevoWebhook = async (
-    payload: BrevoWebhookPayload
-) => {
+export const handleBrevoWebhook = async (payload: BrevoWebhookPayload) => {
 
-        console.log("Webhook payload:", payload);
-
+    console.log("Webhook payload:", payload);
 
     const messageId = payload["message-id"];
-
-
     if (!messageId) {
         return;
     }
-
     const campaign = await prisma.campaign.findFirst({
-
         where: {
             brevoMessageId: messageId,
         },
-
     });
-
 
     if (!campaign) {
 
-        console.log(
-            "Campaign not found for message id:",
-            messageId
-        );
-
+        console.log( "Campaign not found for message id:",  messageId  );
         return;
     }
 
    const event = payload.event.toLowerCase();
    switch (event) {
-
-
         case "delivered":
-
             await prisma.campaign.update({
-
                 where: {
                     id: campaign.id,
                 },
@@ -63,12 +46,11 @@ export const handleBrevoWebhook = async (
 
 
   case "opened":
-    case "unique_opened":
+case "unique_opened":
 
-       console.log("Updating openedCount for campaign", campaign.id);
+    console.log("Updating openedCount for campaign", campaign.id);
 
-
-    await prisma.campaign.update({
+    const updatedCampaign = await prisma.campaign.update({
         where: {
             id: campaign.id,
         },
@@ -77,6 +59,12 @@ export const handleBrevoWebhook = async (
                 increment: 1,
             },
         },
+    });
+
+    console.log("Database after update:", {
+        sent: updatedCampaign.sentCount,
+        delivered: updatedCampaign.deliveredCount,
+        opened: updatedCampaign.openedCount,
     });
 
     break;
