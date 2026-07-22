@@ -50,20 +50,26 @@ export const sendCampaign = async (
     };
 
     const receivers = emails.map(email => ({
-        email
-    }));
+    email
+}));
 
-    const result = await emailApi.sendTransacEmail({
+console.log({
+    sender,
+    to: receivers,
+    subject: campaign.subject,
+});
 
-        sender,
+const result = await emailApi.sendTransacEmail({
 
-        to: receivers,
+    sender,
 
-        subject: campaign.subject,
+    to: receivers,
 
-        htmlContent: campaign.body,
+    subject: campaign.subject,
 
-    });
+    htmlContent: campaign.body,
+
+});
 
     console.log(result);
 
