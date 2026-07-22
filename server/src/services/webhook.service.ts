@@ -9,6 +9,9 @@ export const handleBrevoWebhook = async (
     payload: BrevoWebhookPayload
 ) => {
 
+        console.log("Webhook payload:", payload);
+
+
     const messageId = payload["message-id"];
 
 
@@ -35,8 +38,8 @@ export const handleBrevoWebhook = async (
         return;
     }
 
-
-    switch (payload.event) {
+   const event = payload.event.toLowerCase();
+   switch (event) {
 
 
         case "delivered":
@@ -59,31 +62,24 @@ export const handleBrevoWebhook = async (
 
 
 
-        case "opened":
+  case "opened":
+    case "unique_opened":
 
-            await prisma.campaign.update({
+    await prisma.campaign.update({
+        where: {
+            id: campaign.id,
+        },
+        data: {
+            openedCount: {
+                increment: 1,
+            },
+        },
+    });
 
-                where: {
-                    id: campaign.id,
-                },
+    break;
 
-                data: {
-                    openedCount: {
-                        increment: 1,
-                    },
-                },
-
-            });
-
-            break;
-
-
-
-        default:
-
-            console.log(
-                `Ignoring event: ${payload.event}`
-            );
+   default:
+     console.log("Webhook event:", event);
 
     }
 
