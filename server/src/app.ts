@@ -11,10 +11,13 @@ import analyticsRoutes from "./routes/analytics.routes.js";
 
 const app = express();
 app.use(
-    cors({
-        origin: "http://localhost:3000",
-        credentials: true,
-    })
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://email-marketing-app-dun.vercel.app",
+    ],
+    credentials: true,
+  })
 );
 app.use(express.json());
 
